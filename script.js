@@ -1,62 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Mock Data
-    const clans = [
-        {
-            id: 1,
-            name: "Team Liquid",
-            logo: "https://upload.wikimedia.org/wikipedia/en/b/ba/Team_Liquid_logo.svg",
-            points: {
-                scrims: 150,
-                torneos: 450,
-                "6v6": 300,
-                "4v4": 120,
-                "2v2": 80
-            }
-        },
-        {
-            id: 2,
-            name: "Cloud9",
-            logo: "https://upload.wikimedia.org/wikipedia/commons/f/f7/Cloud9_logo.svg",
-            points: {
-                scrims: 200,
-                torneos: 300,
-                "6v6": 250,
-                "4v4": 150,
-                "2v2": 100
-            }
-        },
-        {
-            id: 3,
-            name: "FaZe Clan",
-            logo: "https://upload.wikimedia.org/wikipedia/commons/4/4d/Faze_Clan.svg",
-            points: {
-                scrims: 100,
-                torneos: 500,
-                "6v6": 150,
-                "4v4": 300,
-                "2v2": 50
-            }
-        },
-        {
-            id: 4,
-            name: "Natus Vincere",
-            logo: "https://upload.wikimedia.org/wikipedia/en/a/ac/Natus_Vincere_logo.svg",
-            points: {
-                scrims: 250,
-                torneos: 200,
-                "6v6": 200,
-                "4v4": 100,
-                "2v2": 150
-            }
-        }
-    ];
-
-    const tournaments = [
-        { id: 1, name: "Copa CTR Primavera", date: "2026-04-15", prize: "$500", status: "Inscripciones Abiertas" },
-        { id: 2, name: "Torneo 4v4 Express", date: "2026-03-30", prize: "$100", status: "En Curso" },
-        { id: 3, name: "Scrim Masters S3", date: "2026-05-01", prize: "$200", status: "Buscando Staff" },
-        { id: 4, name: "Duelo de Clanes 6v6", date: "2026-04-05", prize: "$300", status: "Próximamente" }
-    ];
+    // Mock Data (Empty as requested)
+    const clans = [];
+    const tournaments = [];
 
     const navLinks = document.querySelectorAll('.nav-links a');
     const views = document.querySelectorAll('.view');
@@ -105,6 +50,11 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderRankings() {
         rankingsTableBody.innerHTML = '';
         
+        if (clans.length === 0) {
+            rankingsTableBody.innerHTML = '<tr><td colspan="4" style="text-align: center; padding: 3rem; color: var(--text-muted);">No hay clanes registrados en el ranking todavía.</td></tr>';
+            return;
+        }
+
         let sortedClans = [...clans];
         if (currentFilter === 'overall') {
             sortedClans.sort((a, b) => calculateTotal(b) - calculateTotal(a));
@@ -118,16 +68,16 @@ document.addEventListener('DOMContentLoaded', () => {
             row.style.animationDelay = `${index * 0.1}s`;
 
             const modalities = [
-                { key: 'scrims', icon: 'fa-crosshairs', bg: 'rgba(88, 101, 242, 0.1)' },
-                { key: 'torneos', icon: 'fa-trophy', bg: 'rgba(255, 215, 0, 0.1)' },
-                { key: '6v6', icon: 'fa-users', bg: 'rgba(46, 204, 113, 0.1)' },
-                { key: '4v4', icon: 'fa-user-group', bg: 'rgba(231, 76, 60, 0.1)' },
-                { key: '2v2', icon: 'fa-user', bg: 'rgba(155, 89, 182, 0.1)' }
+                { key: 'torneos', icon: 'fa-trophy', label: 'Copa' },
+                { key: 'scrims', icon: 'fa-map-marked-alt', label: 'Mapa' },
+                { key: '6v6', label: '6v6' },
+                { key: '4v4', label: '4v4' },
+                { key: '2v2', label: '2v2' }
             ];
 
             const modalitiesHtml = modalities.map(m => `
                 <div class="modality-item" style="border-color: ${currentFilter === m.key ? 'var(--primary)' : 'var(--glass-border)'}">
-                    <i class="fas ${m.icon}"></i>
+                    ${m.icon ? `<i class="fas ${m.icon}"></i>` : `<span class="mode-badge">${m.label}</span>`}
                     <span class="modality-pts">${clan.points[m.key] || 0}</span>
                 </div>
             `).join('');
@@ -153,6 +103,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function renderTournaments() {
         tournamentsGrid.innerHTML = '';
+        
+        if (tournaments.length === 0) {
+            tournamentsGrid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 3rem; color: var(--text-muted); width: 100%;">Próximamente se anunciarán nuevos torneos.</div>';
+            return;
+        }
+
         tournaments.forEach((t, index) => {
             const card = document.createElement('div');
             card.className = 'tournament-card glass-card animated';

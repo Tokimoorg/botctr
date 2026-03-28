@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CTR | Rankings & Torneos</title>
+    <meta name="description" content="Sistema oficial de rankings de clanes para CTR. Consulta puntos en Scrims, Torneos y más.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Outfit:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="bg-glow"></div>
+    <header class="glass-nav">
+        <nav class="container">
+            <div class="logo">
+                <img src="logo.png" alt="CTR Logo">
+                <span>CTR</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#" data-link="home" class="active">Home</a></li>
+                <li><a href="#" data-link="rankings">Rankings</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+        <!-- Home Section -->
+        <section id="home" class="view active">
+            <header class="section-header">
+                <h1>Rankings de Clanes</h1>
+                <p>Estadísticas en tiempo real de los mejores clanes del servidor.</p>
+            </header>
+
+            <div class="filters-container glass-card">
+                <div class="filter-scroll">
+                    <button class="filter-btn active" data-filter="overall">Overall</button>
+                    <button class="filter-btn" data-filter="torneos">Torneos</button>
+                    <button class="filter-btn" data-filter="scrims">Scrims</button>
+                    <button class="filter-btn" data-filter="6v6">6v6</button>
+                    <button class="filter-btn" data-filter="4v4">4v4</button>
+                    <button class="filter-btn" data-filter="2v2">2v2</button>
+                </div>
+            </div>
+
+            <div class="table-container glass-card">
+                <table id="rankings-table">
+                    <thead>
+                        <tr>
+                            <th class="rank-col">Rank</th>
+                            <th class="clan-col">Clan</th>
+                            <th class="modalities-col">Modalidades</th>
+                            <th class="total-col">Total Pts</th>
+                        </tr>
+                    </thead>
+                    <tbody id="rankings-body">
+                        <!-- Content loaded dynamic -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Rankings Section -->
+        <section id="rankings" class="view">
+            <header class="section-header">
+                <h1>Torneos Vigentes</h1>
+                <p>Explora y consulta los detalles de los torneos activos en CTR.</p>
+            </header>
+            <div id="tournaments-grid" class="cards-grid">
+                <!-- Content loaded dynamic -->
+            </div>
+        </section>
+    </main>
+
+    <footer class="glass-footer">
+        <div class="container">
+            <p>&copy; 2026 CTR Bot System. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
